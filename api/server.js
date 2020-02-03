@@ -18,7 +18,7 @@ server.use(express.json());
 server.use(cors());
 
 //Server use routers
-// server.use('/api/auth/parent', parentRouter);
+// server.use('/api/auth/users/parent', parentRouter);
 // server.use('/api/auth', authRouter);
 // server.use('/api/auth/admin', authAdmin);
 // server.use('/api/trips', userTrips);
