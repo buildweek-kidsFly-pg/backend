@@ -6,12 +6,12 @@ module.exports = {
   findBy,
   findByUser,
   findById,
-  remove
-  // edit
+  remove,
+  edit
 };
 
 function find() {
-  return db("parent").select("id", "email", "department");
+  return db("parent").select("id", "email");
 }
 
 function findBy(filter) {
@@ -40,4 +40,10 @@ function remove(id) {
   return db("parent")
     .where("id", id)
     .del();
+}
+
+function edit(id, changes) {
+  return db("parent")
+    .where({ id })
+    .update(changes);
 }
