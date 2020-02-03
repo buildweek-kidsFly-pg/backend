@@ -6,7 +6,7 @@ const cors = require("cors");
 //Router Imports
 const parentRouter = require("../users/parent/parent-router.js");
 const assistantRouter = require("../users/assistant/assistant-router.js");
-// const flights = require('../auth/auth-admin.js');
+const flightRouter = require("../flights/flight-router.js");
 // const userTrips = require('../trips/trips.js');
 
 //Create server w/express
