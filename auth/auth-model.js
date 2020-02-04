@@ -4,7 +4,9 @@ module.exports = {
   addParent,
   addAssistant,
   findParent,
-  findAssistant
+  findAssistant,
+  findParentById,
+  findAssistantById
 };
 
 function findParent(filter) {

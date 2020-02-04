@@ -3,7 +3,7 @@ exports.up = function(knex) {
     tbl.increments();
 
     tbl
-      .integer("parent_id", 10)
+      .integer("trips_parent_id", 10)
       .unsigned() // << forces integer to be positive
       .notNullable()
       .references("id") // < which column is being referenced?
@@ -12,28 +12,27 @@ exports.up = function(knex) {
       .onDelete("CASCADE");
 
     tbl
-      .integer("flight_info_id", 10)
+      .integer("trips_assistant_id", 10)
       .unsigned() // << forces integer to be positive
       .notNullable()
       .references("id") // < which column is being referenced?
-      .inTable("flight_info") // << reference the column above in which table?
+      .inTable("assistant") // << reference the column above in which table?
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
 
-    tbl.string("trip_name", 128).notNullable();
+    tbl.text("trip_name", 128).notNullable();
 
-    tbl.string("trip_dates", 128);
+    tbl.integer("kids_traveling", 3).notNullable();
 
-    tbl.string("kids_traveling", 128).notNullable();
+    tbl.integer("checked_bags", 3);
 
-    tbl.string("checked_bags", 128).notNullable();
+    tbl.integer("carryon_bags", 3);
 
-    tbl.string("carryon_bags", 128).notNullable();
+    tbl.integer("carseats", 3);
 
-    tbl.string("carseats", 3).notNullable();
-    tbl.string("strollers", 3).notNullable();
+    tbl.integer("strollers", 3);
 
-    tbl.integer("special_needs", 3);
+    tbl.text("notes", 300);
   });
 };
 
