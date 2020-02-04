@@ -28,11 +28,11 @@ function findParentById(id) {
 
 //Assistant functions
 function findAssistant(filter) {
-  return db("parent").where("parent.email", filter);
+  return db("assistant").where("assistant.email", filter);
 }
 
 async function addAssistant(user) {
-  const [id] = await db("parent").insert(user, "id");
+  const [id] = await db("assistant").insert(user, "id");
 
   return findAssistantById(id);
 }

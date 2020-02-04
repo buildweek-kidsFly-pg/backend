@@ -15,7 +15,7 @@ exports.up = function(knex) {
 
     tbl.string("phone", 30).notNullable();
 
-    tbl.string("p_home_airport", 30);
+    tbl.string("a_home_airport", 30);
 
     tbl.boolean("available").defaultTo(0);
   });

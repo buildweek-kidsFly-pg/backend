@@ -72,11 +72,12 @@ router.post("/p-login", (req, res) => {
 //LOGIN ASSISTANT
 router.post("/a-login", (req, res) => {
   let { email, password } = req.body;
-  //console.log(password, "password line 27");
+  console.log(password, "password line 75");
+  console.log(email, "email");
   Auth.findAssistant(email)
     .first()
     .then(user => {
-      //console.log(user, "user line 31");
+      console.log(user, "user line 79");
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = signToken(user);
 
