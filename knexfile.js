@@ -19,6 +19,23 @@ module.exports = {
       directory: "./database/seeds"
     }
   },
+
+  // needed for heroku
+  // production: {
+  //   client: "pg", // < heroku postgreS
+  //   connection: process.env.DATABASE_URL,
+  //   pool: {
+  //     min: 2,
+  //     max: 10
+  //   },
+  //   migrations: {
+  //     directory: "./database/migrations"
+  //   },
+  //   seeds: {
+  //     directory: "./database/seeds"
+  //   }
+  // },
+
   testing: {
     client: "sqlite3",
     connection: {

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const Flight = require("./flight-model.js");
-const Auth = require("../../middleware/auth-mw.js");
+const Auth = require("../middleware/auth-mw.js");
 
 router.get("/", Auth, (req, res) => {
   //console.log(req.user);

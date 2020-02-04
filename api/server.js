@@ -7,7 +7,8 @@ const cors = require("cors");
 const parentRouter = require("../users/parent/parent-router.js");
 const assistantRouter = require("../users/assistant/assistant-router.js");
 const flightRouter = require("../flights/flight-router.js");
-// const userTrips = require('../trips/trips.js');
+const tripsRouter = require("../trips/trip-router.js");
+const authRouter = require("../auth/auth-router.js");
 
 //Create server w/express
 const server = express();
@@ -17,11 +18,12 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-//Server use routers
-// server.use('/api/auth/users/parent', parentRouter);
-// server.use('/api/auth', authRouter);
-// server.use('/api/auth/admin', authAdmin);
-// server.use('/api/trips', userTrips);
+//Server use routers w/restrictions applied to select routes
+server.use("/api/users/parent", parentRouter);
+server.use("/api/users/assistant", assistantRouter);
+server.use("/api/flights", flightRouter);
+server.use("/api/trips", tripsRouter);
+server.use("/api/auth", authRouter);
 
 server.get("/", (req, res) => {
   res.send("KidsFly is spinning up...please wait!");
