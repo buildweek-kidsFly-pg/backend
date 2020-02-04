@@ -9,15 +9,15 @@ exports.up = function(knex) {
 
     tbl.string("password", 128).notNullable();
 
-    tbl.string("firstName", 128).notNullable();
+    tbl.string("first_name", 128).notNullable();
 
-    tbl.string("lastName", 128).notNullable();
+    tbl.string("last_name", 128).notNullable();
 
     tbl.string("address").notNullable();
 
     tbl.string("phone", 30).notNullable();
 
-    tbl.string("p_home_airport", 30).notNullable();
+    tbl.string("p_home_airport", 30);
   });
 };
 

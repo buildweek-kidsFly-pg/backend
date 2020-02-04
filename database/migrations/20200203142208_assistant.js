@@ -13,9 +13,11 @@ exports.up = function(knex) {
 
     tbl.string("last_name", 128).notNullable();
 
-    tbl.string("a_home_airport", 30).notNullable();
+    tbl.string("phone", 30).notNullable();
 
-    tbl.boolean("available").notNullable();
+    tbl.string("p_home_airport", 30);
+
+    tbl.boolean("available").defaultTo(0);
   });
 };
 
