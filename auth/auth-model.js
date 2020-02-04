@@ -9,6 +9,7 @@ module.exports = {
   findAssistantById
 };
 
+//Parent functions
 function findParent(filter) {
   return db("parent").where("parent.email", filter);
 }
@@ -19,6 +20,13 @@ async function addParent(user) {
   return findParentById(id);
 }
 
+function findParentById(id) {
+  return db("parent")
+    .where({ id })
+    .first();
+}
+
+//Assistant functions
 function findAssistant(filter) {
   return db("parent").where("parent.email", filter);
 }
@@ -27,12 +35,6 @@ async function addAssistant(user) {
   const [id] = await db("parent").insert(user, "id");
 
   return findAssistantById(id);
-}
-
-function findParentById(id) {
-  return db("parent")
-    .where({ id })
-    .first();
 }
 
 function findAssistantById(id) {
