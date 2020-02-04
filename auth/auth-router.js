@@ -54,7 +54,7 @@ router.post("/p-login", (req, res) => {
   Auth.findParent(email)
     .first()
     .then(user => {
-      //console.log(user, "user line 31");
+      console.log(user, "user line 31");
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = signToken(user);
 
@@ -94,10 +94,10 @@ router.post("/a-login", (req, res) => {
 
 //Create TOKEN
 function signToken(user) {
+  console.log(user, "user line 97");
   const payload = {
     id: user.id,
-    name: user.userName,
-    department: user.department
+    email: user.email
   };
 
   const options = {
