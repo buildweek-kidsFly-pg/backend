@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function find() {
-  return db("flight_info").select("id", "name");
+  return db("flight_info");
 }
 
 function findBy(filter) {
