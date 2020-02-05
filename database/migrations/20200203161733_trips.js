@@ -14,7 +14,7 @@ exports.up = function(knex) {
     tbl
       .integer("trips_assistant_id", 10)
       .unsigned() // << forces integer to be positive
-      .notNullable()
+      // .notNullable()
       .references("id") // < which column is being referenced?
       .inTable("assistant") // << reference the column above in which table?
       .onUpdate("CASCADE")

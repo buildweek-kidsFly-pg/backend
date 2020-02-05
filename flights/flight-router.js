@@ -3,14 +3,15 @@ const router = require("express").Router();
 const Flight = require("./flight-model.js");
 const Auth = require("../middleware/auth-mw.js");
 
-router.get("/", Auth, (req, res) => {
-  //console.log(req.user);
-  Flight.find()
-    .then(flight => {
-      res.json(flight);
-    })
-    .catch(err => res.send(err));
-});
+//GET all Unscheduled TRIPS for ASSISTANT
+// router.get("/", Auth, (req, res) => {
+//   //console.log(req.user);
+//   Flight.findUnscheduledFlights()
+//     .then(flight => {
+//       res.json(flight);
+//     })
+//     .catch(err => res.send(err));
+// });
 
 // router.get("/bydept", Auth, (req, res) => {
 //   //console.log(req.user);

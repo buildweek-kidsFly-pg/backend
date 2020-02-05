@@ -15,7 +15,7 @@ function find() {
 }
 
 function findBy(filter) {
-  return db("parent").where(filter);
+  return db("parent").where("parent.id", filter);
   // .select("id", "username", "department");
 }
 
