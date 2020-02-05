@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function find() {
-  return db("trips").select("id", "name");
+  return db("trips"); //.select("id", "name");
 }
 
 function findBy(filter) {

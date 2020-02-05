@@ -1,10 +1,11 @@
-# backendBack-End by Benjamin Griffin
+# Back-End by William Chambers
 
 Landing Page - https://kidsfly-lambda.herokuapp.com/
 Endpoints
+
 GETS
 
-GET all TRIPS - requires Authorization Header token from login
+GET all TRIPS for user - requires Authorization Header token from login
 /api/trips
 
 Returns an array of objects
@@ -13,16 +14,21 @@ Example:
 
 [
 {
-"id": 1,
-"name": "Trip to Vegas!"
-},
-{
-"id": 3,
-"name": "Florida 2020"
+id: 1,
+trips_parent_id: 1,
+trips_assistant_id: 1,
+trip_name: "test trip",
+kids_traveling: 2,
+checked_bags: 3,
+carryon_bags: 3,
+carseats: 1,
+strollers: 1,
+notes: "nothing to add here"
 }
 ]
-GET all User_Trips - requires Authorization Header token from login
-/api/user/\_trips
+
+GET all FLIGHTS for user - requires Authorization Header token from login
+/api/flights
 
 Returns an array of objects
 
@@ -154,7 +160,7 @@ Example of required data:
 "arrived": 1,
 "en_route": 1
 }
-Update a Trip
+UPDATE a TRIP by ID
 /api/trips/:id
 
 Requires: name only
@@ -164,9 +170,10 @@ Example of required data:
 {
 "name": "Lets update the trip name"
 }
-DELETES
-Delete a User_Trip by ID
-/api/user_trips/:id
 
-Delete a Trip by ID
+DELETES
+DELETE a FLIGHT by ID
+/api/flights/:id
+
+DELETE a TRIP by ID
 /api/trips/:id
