@@ -3,7 +3,7 @@ const db = require("../database/dbConfig.js");
 module.exports = {
   add,
   find,
-  findBy,
+  findFlightsByParentId,
   findByUser,
   findById,
   remove,
@@ -11,11 +11,11 @@ module.exports = {
 };
 
 function find() {
-  return db("flight_info");
+  return db("flight_info"); //.select("id", "name");
 }
 
-function findBy(filter) {
-  return db("flight_info").where(filter);
+function findFlightsByParentId(filter) {
+  return db("flight_info").where("flight_info_parent_id", filter);
   // .select("id", "username", "department");
 }
 

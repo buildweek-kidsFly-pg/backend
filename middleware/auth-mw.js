@@ -4,8 +4,8 @@ const { jwtSecret } = require("../config/secret.js");
 
 module.exports = (req, res, next) => {
   const token = req.headers.authorization;
-  console.log(token, "token line 7");
-  console.log(jwtSecret, "jwtsecret");
+  // console.log(token, "token line 7");
+  // console.log(jwtSecret, "jwtsecret line 8");
   if (token) {
     jwt.verify(token, jwtSecret, (err, decodedToken) => {
       if (err) {
@@ -15,9 +15,9 @@ module.exports = (req, res, next) => {
         //i.e: the token is not valid
         res.status(401).json({ message: "Token error" });
       } else {
-        console.log(decodedToken, "decodedToken line 18");
-        console.log(req.user, "line 19");
-        // req.user = { userEmail: decodedToken.email };
+        // console.log(decodedToken, "decodedToken line 18");
+        req.user = { id: decodedToken.id, email: decodedToken.email };
+        // console.log(req.user, "line 19 auth-mw");
         next();
       }
       // next();

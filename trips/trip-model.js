@@ -3,7 +3,7 @@ const db = require("../database/dbConfig.js");
 module.exports = {
   add,
   find,
-  findBy,
+  findTripsByParentId,
   findByUser,
   findById,
   remove,
@@ -14,8 +14,8 @@ function find() {
   return db("trips"); //.select("id", "name");
 }
 
-function findBy(filter) {
-  return db("trips").where(filter);
+function findTripsByParentId(filter) {
+  return db("trips").where("trips_parent_id", filter);
   // .select("id", "username", "department");
 }
 
