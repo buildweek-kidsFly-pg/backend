@@ -4,7 +4,10 @@ const Assistant = require("./assistant-model.js");
 const Flights = require("../../flights/flight-model.js");
 const Auth = require("../../middleware/auth-mw.js");
 
-//GET PARENT INFO by ID
+/**************************************************************************/
+/************************* BEGIN ASSISTANT STUFF *****************************/
+
+//GET INFO by ID - User type: assistant
 router.get("/", Auth, (req, res) => {
   const id = req.user.id;
   Assistant.findById(id)
@@ -14,10 +17,50 @@ router.get("/", Auth, (req, res) => {
     .catch(err => res.send(err));
 });
 
-//Find all flights needing assistance
+//UPDATE my INFO - User type: assistant
+router.put("/", Auth, (req, res) => {
+  const changes = req.body;
+  const id = req.user.id;
+
+  Assistant.edit(id, changes)
+    .then(info => {
+      if (info) {
+        res.status(200).json({ info: changes });
+      } else {
+        res.status(404).json({ message: "Error getting user info" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ message: "Error updating user info" });
+    });
+});
+
+// DELETE account - User type: assistant
+router.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await Assistant.findById(id);
+    if (user) {
+      const deleted = await Assistant.remove(id);
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: "Error locating id." });
+    }
+  } catch {
+    res
+      .status(500)
+      .json({ message: "There was an error deleting your account." });
+  }
+});
+
+/************************* END ASSISTANT STUFF *****************************/
+
+/************************* BEGIN TRIP STUFF *****************************/
+
+//GET all flights needing assistance - User type: assistant
 router.get("/availableFlights", Auth, (req, res) => {
-  // console.log(req.user, "req.user line 9 trip-router");
-  // const id = req.user.id;
   Flights.findFlightsNeedingHelp()
     .then(flight => {
       res.json(flight);
@@ -30,10 +73,10 @@ router.get("/availableFlights", Auth, (req, res) => {
     });
 });
 
-//Find all flights I'm helping with
+//GET all flights signed up to help with - User type: assistant
 router.get("/myFlights", Auth, (req, res) => {
-  // console.log(req.user, "req.user line 9 trip-router");
   const id = req.user.id;
+
   Flights.findFlightsImWorking(id)
     .then(flight => {
       res.json(flight);
@@ -41,16 +84,13 @@ router.get("/myFlights", Auth, (req, res) => {
     .catch(err => res.send(err));
 });
 
-//UPDATE a flight to add assistant id
+//UPDATE a flight to ADD or REMOVE assistance - User type: assistant
 router.put("/helpWithFlight/:id", Auth, (req, res) => {
   const { id } = req.params;
   const changes = req.body;
-  console.log(id, "id line 48");
-  console.log(changes, "changes linr 49");
 
   Flights.findById(id)
     .then(flight => {
-      // console.log(flight, "id line 53");
       if (flight) {
         Flights.editFlightAddAssistant(id, changes)
           .then(updated => {
@@ -71,13 +111,6 @@ router.put("/helpWithFlight/:id", Auth, (req, res) => {
     });
 });
 
-// router.get("/bydept", Auth, (req, res) => {
-//   //console.log(req.user);
-//   Asst.findBy(req.user.department)
-//     .then(users => {
-//       res.json(users);
-//     })
-//     .catch(err => res.send(err));
-// });
+/************************* END TRIP STUFF *****************************/
 
 module.exports = router;

@@ -6,6 +6,7 @@ module.exports = {
   findFlightsByParentId,
   findFlightsImWorking,
   findFlightsNeedingHelp,
+  findFlightsByFlightId,
   findById,
   remove,
   editFlightAddAssistant
@@ -76,6 +77,12 @@ function findFlightsNeedingHelp() {
 }
 
 function findById(id) {
+  return db("flight_info")
+    .where({ id })
+    .first();
+}
+
+function findFlightsByFlightId(id) {
   return db("flight_info")
     .where({ id })
     .first();
