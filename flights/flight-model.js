@@ -45,7 +45,6 @@ function findFlightsImWorking(filter) {
 }
 
 function findFlightsNeedingHelp() {
-  console.log("help");
   return db("flight_info as f")
     .join("trips as t", "f.flight_info_trips_id", "t.id")
     .select(
@@ -70,9 +69,9 @@ function findFlightsNeedingHelp() {
       "f.asst_sched_dep_airport",
       "f.asst_sched_arr_airport"
     )
-    .where("help_req_at_dep", 1)
+    .where("f.flight_info_assistant_id_dep", 0)
+    .orWhere("f.flight_info_assistant_id_arr", 0)
     .orWhere("f.asst_sched_dep_airport", 0)
-    .orWhere("help_req_at_arr", 1)
     .orWhere("f.asst_sched_arr_airport", 0);
 }
 

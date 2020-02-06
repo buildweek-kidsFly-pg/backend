@@ -34,11 +34,11 @@ server.get("/api", (req, res) => {
 });
 
 server.get("/api/flights", (req, res) => {
-  res.send("/api/flights is spinning up...please wait!");
+  res.send("To infinity!...And beyond!!!");
 });
 
 server.get("/api/trips", (req, res) => {
-  res.send("/api/trips is spinning up...please wait!");
+  res.send("Ooops, nothing to see here!");
 });
 
 server.get("/api/auth", (req, res) => {
