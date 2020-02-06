@@ -9,6 +9,7 @@ module.exports = {
   findFlightsByFlightId,
   findById,
   remove,
+  edit,
   editFlightAddAssistant
 };
 
@@ -101,6 +102,13 @@ function remove(id) {
 
 //UPDATE flight to add assistant
 function editFlightAddAssistant(id, changes) {
+  return db("flight_info as f")
+    .where({ id })
+    .update(changes);
+}
+
+//UPDATE flight info
+function edit(id, changes) {
   return db("flight_info as f")
     .where({ id })
     .update(changes);
