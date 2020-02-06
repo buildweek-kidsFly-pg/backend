@@ -1,21 +1,22 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const db = require("../database/dbConfig.js");
 
 const Auth = require("./auth-model.js");
 
 const { jwtSecret } = require("../config/secret.js");
 
+/**************************************************************************/
+
 //for endpoints beginnings with /api/auth
+
+/************************* BEGIN PARENT STUFF *****************************/
 
 //REGISTER PARENT
 router.post("/p-register", (req, res) => {
-  // router.get("/register", (req, res) => {
-  //   res.status(200).json({ err: "test" });
-
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 3);
+
   user.password = hash;
 
   Auth.addParent(user)
@@ -28,29 +29,10 @@ router.post("/p-register", (req, res) => {
     });
 });
 
-//REGISTER ASSISTANT
-router.post("/a-register", (req, res) => {
-  // router.get("/register", (req, res) => {
-  //   res.status(200).json({ err: "test" });
-
-  let user = req.body;
-  const hash = bcrypt.hashSync(user.password, 3);
-  user.password = hash;
-
-  Auth.addAssistant(user)
-    .then(newUser => {
-      res.status(201).json(newUser);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: "There was an error" });
-    });
-});
-
 //LOGIN PARENT
 router.post("/p-login", (req, res) => {
   let { email, password } = req.body;
-  //console.log(password, "password line 27");
+
   Auth.findParent(email)
     .first()
     .then(user => {
@@ -69,11 +51,31 @@ router.post("/p-login", (req, res) => {
     });
 });
 
+/************************* END PARENT STUFF *****************************/
+
+/************************* BEGIN ASSISTANT STUFF *****************************/
+
+//REGISTER ASSISTANT
+router.post("/a-register", (req, res) => {
+  let user = req.body;
+  const hash = bcrypt.hashSync(user.password, 3);
+
+  user.password = hash;
+
+  Auth.addAssistant(user)
+    .then(newUser => {
+      res.status(201).json(newUser);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: "There was an error" });
+    });
+});
+
 //LOGIN ASSISTANT
 router.post("/a-login", (req, res) => {
   let { email, password } = req.body;
-  console.log(password, "password line 75");
-  console.log(email, "email");
+
   Auth.findAssistant(email)
     .first()
     .then(user => {
@@ -92,6 +94,10 @@ router.post("/a-login", (req, res) => {
     });
 });
 
+/************************* END ASSISTANT STUFF *****************************/
+
+/************************* BEGIN CREATE TOKEN *****************************/
+
 //Create TOKEN
 function signToken(user) {
   console.log(user, "user line 97");
@@ -105,5 +111,7 @@ function signToken(user) {
   };
   return jwt.sign(payload, jwtSecret, options);
 }
+
+/************************* END CREATE TOKEN *****************************/
 
 module.exports = router;

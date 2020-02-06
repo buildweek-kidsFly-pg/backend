@@ -7,11 +7,15 @@ const Trips = require("../../trips/trip-model.js");
 const Auth = require("../../middleware/auth-mw.js");
 
 /**************************************************************************/
+
+//for endpoints beginnings with /users/parent
+
 /************************* BEGIN PARENT STUFF *****************************/
 
 //GET PARENT INFO by ID - User type: parent
 router.get("/", Auth, (req, res) => {
   const id = req.user.id;
+
   Parent.findById(id)
     .then(user => {
       res.json(user);
@@ -21,11 +25,9 @@ router.get("/", Auth, (req, res) => {
 
 //UPDATE my INFO - User type: parent
 router.put("/", Auth, (req, res) => {
-  // console.log(req.user, "req.user line 9 trip-router");
   const changes = req.body;
   const id = req.user.id;
-  // console.log(changes, "changes");
-  // console.log(req.user.id, "id");
+
   Parent.edit(id, changes)
     .then(info => {
       if (info) {
@@ -78,8 +80,6 @@ router.get("/myTrips", Auth, (req, res) => {
 router.get("/myTrips/:id", Auth, (req, res) => {
   const { id } = req.params;
   const userId = req.user.id;
-  // console.log(id, "id");
-  // console.log(userId, "userId");
 
   if (id !== userId) {
     console.log(id);
@@ -118,8 +118,28 @@ router.put("/myTrips/:id", Auth, (req, res) => {
 //ADD new TRIP - User type: parent
 router.post("/myTrips", (req, res) => {
   let newTrip = req.body;
-  console.log(req.body, "req.body");
-
+  // const { id } = req.params;
+  // console.log(id);
+  // let {
+  //   trip_name,
+  //   kids_traveling,
+  //   checked_bags,
+  //   carryon_bags,
+  //   carseats,
+  //   strollers,
+  //   notes
+  // } = req.body;
+  // let trips_parent_id = id;
+  // Trips.add({
+  //   trips_parent_id,
+  //   trip_name,
+  //   kids_traveling,
+  //   checked_bags,
+  //   carryon_bags,
+  //   carseats,
+  //   strollers,
+  //   notes
+  // })
   Trips.add(newTrip)
     .then(trip => {
       res.status(201).json(trip);

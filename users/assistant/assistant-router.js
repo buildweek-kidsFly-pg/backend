@@ -5,11 +5,15 @@ const Flights = require("../../flights/flight-model.js");
 const Auth = require("../../middleware/auth-mw.js");
 
 /**************************************************************************/
+
+//for endpoints beginnings with /users/assistant
+
 /************************* BEGIN ASSISTANT STUFF *****************************/
 
 //GET INFO by ID - User type: assistant
 router.get("/", Auth, (req, res) => {
   const id = req.user.id;
+
   Assistant.findById(id)
     .then(user => {
       res.json(user);
@@ -36,7 +40,7 @@ router.put("/", Auth, (req, res) => {
     });
 });
 
-// DELETE account - User type: assistant
+// DELETE this account - User type: assistant
 router.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
 
@@ -57,7 +61,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 /************************* END ASSISTANT STUFF *****************************/
 
-/************************* BEGIN TRIP STUFF *****************************/
+/************************* BEGIN FLIGHT STUFF *****************************/
 
 //GET all flights needing assistance - User type: assistant
 router.get("/availableFlights", Auth, (req, res) => {
@@ -111,6 +115,6 @@ router.put("/helpWithFlight/:id", Auth, (req, res) => {
     });
 });
 
-/************************* END TRIP STUFF *****************************/
+/************************* END FLIGHT STUFF *****************************/
 
 module.exports = router;
