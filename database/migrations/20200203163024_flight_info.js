@@ -3,7 +3,16 @@ exports.up = function(knex) {
     tbl.increments();
 
     tbl
-      .integer("flight_info_assistant_id", 10)
+      .integer("flight_info_assistant_id_dep", 10)
+      .unsigned() // << forces integer to be positive
+      // .notNullable()
+      .references("id") // < which column is being referenced?
+      .inTable("assistant") // << reference the column above in which table?
+      .onUpdate("CASCADE")
+      .onDelete("CASCADE");
+
+    tbl
+      .integer("flight_info_assistant_id_arr", 10)
       .unsigned() // << forces integer to be positive
       // .notNullable()
       .references("id") // < which column is being referenced?

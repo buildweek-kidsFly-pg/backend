@@ -4,6 +4,7 @@ module.exports = {
   add,
   find,
   findTripsByParentId,
+  findTripsByTripId,
   findByUser,
   findById,
   remove,
@@ -25,6 +26,12 @@ function findByUser(filter) {
 }
 
 function findById(id) {
+  return db("trips")
+    .where({ id })
+    .first();
+}
+
+function findTripsByTripId(id) {
   return db("trips")
     .where({ id })
     .first();
